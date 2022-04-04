@@ -1,19 +1,18 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Container } from '../styles/Layouts';
-import { IQPXTermProps } from '../QPXterm';
 import dynamic from 'next/dynamic';
 import 'xterm/css/xterm.css';
-import { useRef } from 'react';
-import { Terminal } from 'xterm';
 
-const DynamicQPXterm = dynamic<IQPXTermProps>(() => import('../QPXterm'), {
+const DynamicHelloWorld = dynamic(() => import('../examples/HelloWorld'), {
+  ssr: false,
+});
+
+const DynamicSetMessage = dynamic(() => import('../examples/SetMessage'), {
   ssr: false,
 });
 
 const Home: NextPage = () => {
-  const terminalRef = useRef<Terminal>();
-
   return (
     <div>
       <Head>
@@ -23,48 +22,11 @@ const Home: NextPage = () => {
       </Head>
 
       <Container>
-        <h1>TEST</h1>
-        <DynamicQPXterm
-          onDidMount={terminal => {
-            console.log(terminal);
-            terminalRef.current = terminal;
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello wolrd');
-            terminal.writeln('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ \'');
-            terminal.writeln('asdfasdfashdlfahjslidfhlashdflhasldifhlisahdflasihdflaishdflhiasldfihalsdihfalsihdflashidflahsidilf asdfasdfashdlfahjslidfhlashdflhasldifhlisahdflasihdflaishdflhiasldfihalsdihfalsihdflashidflahsidilf asdfasdfashdlfahjslidfhlashdflhasldifhlisahdflasihdflaishdflhiasldfihalsdihfalsihdflashidflahsidilf');
-          }}
-        />
+        <h1>Hello World</h1>
+        <DynamicHelloWorld />
+
+        <h1>set Message</h1>
+        <DynamicSetMessage />
       </Container>
     </div>
   );

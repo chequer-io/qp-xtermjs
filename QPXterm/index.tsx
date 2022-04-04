@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Terminal, ITerminalOptions, ITerminalAddon } from 'xterm';
 
 export interface IQPXTermProps {
+  forwardedRef?: React.MutableRefObject<QPXterm>;
   className?: string;
   options?: ITerminalOptions;
   addons?: Array<ITerminalAddon>;
