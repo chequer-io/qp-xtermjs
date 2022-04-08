@@ -1,6 +1,6 @@
 {
-  "name": "qpxterm",
-  "version": "1.0.0",
+  "name": "qp-xtermjs",
+  "version": "0.0.0",
   "description": "",
   "jsnext:main": "dist/es6/index.js",
   "module": "dist/es6/index.js",
@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chequer-io/QPXterm.git"
+    "url": "git+https://github.com/chequer-io/qp-xtermjs.git"
   },
-  "author": "",
+  "author": "tom@axisj.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/chequer-io/QPXterm/issues"
+    "url": "https://github.com/chequer-io/qp-xtermjs/issues"
   },
-  "homepage": "https://github.com/chequer-io/QPXterm#readme",
+  "homepage": "https://github.com/chequer-io/qp-xtermjs#readme",
   "dependencies": {
     "react": "17.0.2",
     "react-dom": "17.0.2",
