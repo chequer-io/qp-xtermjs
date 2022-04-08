@@ -8,7 +8,7 @@ const DynamicHelloWorld = dynamic(() => import('../examples/HelloWorld'), {
   ssr: false,
 });
 
-const DynamicSetMessage = dynamic(() => import('../examples/SetMessage'), {
+const DynamicCustomStyle = dynamic(() => import('../examples/CustomStyle'), {
   ssr: false,
 });
 
@@ -25,8 +25,8 @@ const Home: NextPage = () => {
         <h1>Hello World</h1>
         <DynamicHelloWorld />
 
-        <h1>set Message</h1>
-        <DynamicSetMessage />
+        <h1>Custom Style</h1>
+        <DynamicCustomStyle />
       </Container>
     </div>
   );

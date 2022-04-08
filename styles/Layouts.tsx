@@ -5,6 +5,5 @@ export const Container: React.FC = ({ children }) => {
 };
 
 const SContainer = styled.div`
-  max-width: 900px;
-  margin: 0 auto;
+
 `;

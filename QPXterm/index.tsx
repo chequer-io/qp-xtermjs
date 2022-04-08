@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Terminal, ITerminalOptions, ITerminalAddon } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
 
 export interface IQPXTermProps {
   forwardedRef?: React.MutableRefObject<QPXterm>;
@@ -85,7 +86,7 @@ export interface IQPXTermProps {
    */
   customKeyEventHandler?(event: KeyboardEvent): boolean;
 
-  onDidMount?(terminal: Terminal): void;
+  onDidMount?(terminal: QPXterm): void;
 }
 
 export default class QPXterm extends React.Component<IQPXTermProps> {
@@ -97,12 +98,29 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
   /**
    * XTerm.js Terminal object.
    */
-  terminal!: Terminal; // This is assigned in the setupTerminal() which is called from the constructor
+  terminal: Terminal;
+  fitAddon: FitAddon;
+  resizeObserver: ResizeObserver;
 
   constructor(props: IQPXTermProps) {
     super(props);
 
     this.terminalRef = React.createRef();
+    this.fitAddon = new FitAddon();
+    this.resizeObserver = new ResizeObserver(entries => {
+      if (entries.length !== 1) {
+        throw new Error('Invalid Container length');
+      }
+      //
+      // const [entry] = entries;
+      //
+      // const { width, height } = entry.contentRect;
+      //
+      // setWidth(width);
+      // setHeight(height);
+
+      this.fitAddon.fit();
+    });
 
     // Bind Methods
     this.onData = this.onData.bind(this);
@@ -116,17 +134,15 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     this.onResize = this.onResize.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
 
-    this.setupTerminal();
-  }
-
-  setupTerminal() {
     // Setup the XTerm terminal.
     this.terminal = new Terminal(this.props.options);
+
+    this.terminal.loadAddon(this.fitAddon);
 
     // Load addons if the prop exists.
     if (this.props.addons) {
       this.props.addons.forEach(addon => {
-        this.terminal.loadAddon(addon);
+        this.terminal?.loadAddon(addon);
       });
     }
 
@@ -151,16 +167,22 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
   }
 
   componentDidMount() {
-    if (this.terminalRef.current) {
+    if (this.terminalRef.current && this.terminal) {
       // Creates the terminal within the container element.
       this.terminal.open(this.terminalRef.current);
-      this.props.onDidMount?.(this.terminal);
+      this.fitAddon.fit();
+
+      this.resizeObserver.observe(this.terminalRef.current);
+      this.props.onDidMount?.(this);
     }
   }
 
   componentWillUnmount() {
     // When the component unmounts dispose of the terminal and all of its listeners.
-    this.terminal.dispose();
+    this.terminal?.dispose();
+    if (this.terminalRef.current) {
+      this.resizeObserver.unobserve(this.terminalRef.current);
+    }
   }
 
   private onBinary(data: string) {
@@ -203,7 +225,24 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     if (this.props.onTitleChange) this.props.onTitleChange(newTitle);
   }
 
+  public appendMessage(values: string[]) {
+    for (const value of values) {
+      this.terminal.writeln(value);
+    }
+  }
+
+  public setMessage(values: string[]) {
+    this.terminal.clear();
+    this.appendMessage(values);
+  }
+
   render() {
-    return <div className={this.props.className} ref={this.terminalRef} />;
+    return (
+      <div
+        className={this.props.className}
+        style={{ overflow: 'hidden' }}
+        ref={this.terminalRef}
+      />
+    );
   }
 }

@@ -3,17 +3,11 @@ import QPXterm from '../QPXterm';
 import { Terminal } from 'xterm';
 
 const HelloWorld: React.FC = () => {
-  const terminalRef = useRef<Terminal | null>(null);
+  const terminalRef = useRef<QPXterm | null>();
 
-  const initMessage = useCallback(() => {
-    if (terminalRef.current) {
-      terminalRef.current?.write('Hello World');
-    }
-  }, []);
-
-  const onDidMount = useCallback((terminal: Terminal) => {
+  const onDidMount = useCallback((terminal: QPXterm) => {
     terminalRef.current = terminal;
-    initMessage();
+    terminalRef.current?.setMessage(['Hello World']);
   }, []);
 
   return (
