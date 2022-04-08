@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import QPXterm from '../QPXterm';
-import { Terminal } from 'xterm';
+import QPXterm from '../querypie-xtermjs';
 
 const HelloWorld: React.FC = () => {
   const terminalRef = useRef<QPXterm | null>();

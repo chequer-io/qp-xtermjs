@@ -2,12 +2,19 @@
   "name": "qpxterm",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "jsnext:main": "dist/es6/index.js",
+  "module": "dist/es6/index.js",
+  "main": "dist/commonjs/index.js",
   "scripts": {
     "dev": "PORT=3378 next dev",
     "next-build": "next build",
     "next-start": "next start",
-    "next-lint": "next lint"
+    "next-lint": "next lint",
+    "build:common": "ncp ./README.md ./dist/README.md",
+    "build:es5": "rimraf ./dist/commonjs && tsc --p tsconfig.es5.json",
+    "build:es6": "rimraf ./dist/es6 && tsc --p tsconfig.es6.json",
+    "build": "npm run build:common && npm run build:es5 && npm run build:es6",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
