@@ -7,6 +7,7 @@ export interface IQPXTermProps {
   className?: string;
   options?: ITerminalOptions;
   addons?: Array<ITerminalAddon>;
+  style?: React.CSSProperties;
 
   /**
    * Adds an event listener for when a binary event fires. This is used to
@@ -239,8 +240,9 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
   render() {
     return (
       <div
+        role={'qp-xtermjs'}
         className={this.props.className}
-        style={{ overflow: 'hidden' }}
+        style={this.props.style ?? { overflow: 'hidden' }}
         ref={this.terminalRef}
       />
     );
