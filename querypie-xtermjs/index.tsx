@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Terminal, ITerminalOptions, ITerminalAddon } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
+import debounce from 'lodash.debounce';
 
 export interface IQPXTermProps {
   forwardedRef?: React.MutableRefObject<QPXterm>;
@@ -108,19 +109,15 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
 
     this.terminalRef = React.createRef();
     this.fitAddon = new FitAddon();
+
+    const alignTerminal = debounce(() => this.fitAddon.fit(), 300);
+
     this.resizeObserver = new ResizeObserver(entries => {
       if (entries.length !== 1) {
         throw new Error('Invalid Container length');
       }
-      //
-      // const [entry] = entries;
-      //
-      // const { width, height } = entry.contentRect;
-      //
-      // setWidth(width);
-      // setHeight(height);
 
-      this.fitAddon.fit();
+      alignTerminal();
     });
 
     // Bind Methods
