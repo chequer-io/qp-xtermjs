@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Terminal, ITerminalOptions, ITerminalAddon } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import debounce from 'lodash.debounce';
+import compileColor from './colorCode';
 
 export interface IQPXTermProps {
   forwardedRef?: React.MutableRefObject<QPXterm>;
@@ -229,9 +230,14 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     }
   }
 
-  public setMessage(values: string[]) {
+  public setMessage(values: string[], useTemplate?: boolean) {
     this.terminal.clear();
-    this.appendMessage(values);
+
+    if (useTemplate) {
+      this.appendMessage(values.map(value => compileColor(value)));
+    } else {
+      this.appendMessage(values);
+    }
   }
 
   render() {
