@@ -224,19 +224,25 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     if (this.props.onTitleChange) this.props.onTitleChange(newTitle);
   }
 
-  public appendMessage(values: string[]) {
+  public appendMessage(values: string[], callback?: () => void) {
     for (const value of values) {
-      this.terminal.writeln(value);
+      this.terminal.writeln(value, callback);
     }
   }
 
-  public setMessage(values: string[], useTemplate?: boolean) {
+  public setMessage(
+    values: string[],
+    options?: {
+      useTemplate?: boolean;
+      callback?: () => void;
+    },
+  ) {
     this.terminal.clear();
 
-    if (useTemplate) {
-      this.appendMessage(values.map(value => compileColor(value)));
+    if (options?.useTemplate) {
+      this.appendMessage(values.map(value => compileColor(value)), options?.callback);
     } else {
-      this.appendMessage(values);
+      this.appendMessage(values, options?.callback);
     }
   }
 
