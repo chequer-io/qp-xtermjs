@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { Terminal, ITerminalOptions, ITerminalAddon } from 'xterm';
+import {
+  Terminal,
+  ITerminalOptions,
+  ITerminalAddon,
+  ILinkProvider,
+} from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import debounce from 'lodash.debounce';
 import compileColor from './colorCode';
@@ -179,6 +184,7 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
   componentWillUnmount() {
     // When the component unmounts dispose of the terminal and all of its listeners.
     this.terminal?.dispose();
+    this.fitAddon.dispose();
     if (this.terminalRef.current) {
       this.resizeObserver.unobserve(this.terminalRef.current);
     }
@@ -240,7 +246,10 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     this.terminal.clear();
 
     if (options?.useTemplate) {
-      this.appendMessage(values.map(value => compileColor(value)), options?.callback);
+      this.appendMessage(
+        values.map(value => compileColor(value)),
+        options?.callback,
+      );
     } else {
       this.appendMessage(values, options?.callback);
     }

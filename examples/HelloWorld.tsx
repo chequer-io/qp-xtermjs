@@ -6,12 +6,12 @@ const HelloWorld: React.FC = () => {
 
   const onDidMount = useCallback((terminal: QPXterm) => {
     terminalRef.current = terminal;
-    terminalRef.current?.setMessage(['Hello World']);
+    terminalRef.current?.setMessage(['Hello World', 'https://querypie.com']);
   }, []);
 
   return (
     <>
-      <QPXterm onDidMount={onDidMount} />
+      <QPXterm onDidMount={onDidMount} style={{ height: 150 }} />
     </>
   );
 };

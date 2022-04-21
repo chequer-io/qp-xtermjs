@@ -12,6 +12,10 @@ const DynamicCustomStyle = dynamic(() => import('../examples/CustomStyle'), {
   ssr: false,
 });
 
+const DynamicWebLink = dynamic(() => import('../examples/WebLink'), {
+  ssr: false,
+});
+
 const Home: NextPage = () => {
   return (
     <div>
@@ -27,6 +31,9 @@ const Home: NextPage = () => {
 
         <h1>Custom Style</h1>
         <DynamicCustomStyle />
+
+        <h1>DynamicWebLink</h1>
+        <DynamicWebLink />
       </Container>
     </div>
   );
