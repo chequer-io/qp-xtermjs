@@ -1,14 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016",
-      "es2017",
-      "es2018",
-      "esnext"
-    ],
+    "lib": ["dom", "es2015", "es2016", "es2017", "es2018", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,7 +15,6 @@
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
     "incremental": true,
-    "typeRoots": ["node_modules/@types", "@types"],
     "plugins": [
       {
         "name": "typescript-styled-plugin"
@@ -38,9 +30,5 @@
     "jest",
     "dist"
   ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
