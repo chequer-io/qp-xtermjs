@@ -1,5 +1,5 @@
-const prefix = '\x1b[';
-const colors = {
+export const prefix = '\x1b[';
+export const colors = {
   black: '30m',
   red: '31m',
   green: '32m',
@@ -37,7 +37,7 @@ const colors = {
   whiteUnderscore: '37;4m',
 };
 
-const resetAll = '\x1b[0m';
+export const resetAll = '\x1b[0m';
 
 export default function compileColor(str: string) {
   return str.replace(/\<(\w+)\>(.*)\<\/\1>/gm, (originStr, color, value) => {
