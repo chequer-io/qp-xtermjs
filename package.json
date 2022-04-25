@@ -13,7 +13,7 @@
     "build:es5": "rimraf ./dist/commonjs && tsc --p tsconfig.es5.json",
     "build:es6": "rimraf ./dist/es6 && tsc --p tsconfig.es6.json",
     "build": "npm run build:es5 && npm run build:es6",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
