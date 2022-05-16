@@ -38,10 +38,15 @@ export const colors = {
 };
 
 export const resetAll = '\x1b[0m';
-
+// \x1b[31m
+// \x1b[34m
 export default function compileColor(str: string) {
   return str.replace(/\<(\w+)\>(.*)\<\/\1>/gm, (originStr, color, value) => {
     // @ts-ignore
-    return `${prefix}${colors[color] ?? colors.black}${value}${resetAll}`;
+    if (colors[color]) {
+      // @ts-ignore
+      return `${prefix}${colors[color]}${value}${resetAll}`;
+    }
+    return value;
   });
 }

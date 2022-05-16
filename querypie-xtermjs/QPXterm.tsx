@@ -241,6 +241,7 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     this.terminal.clear();
 
     if (options?.useTemplate) {
+
       this.appendMessage(
         values.map(value => compileColor(value)),
         options?.callback,
