@@ -1,6 +1,6 @@
 {
   "name": "qp-xtermjs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "jsnext:main": "dist/es6/index.js",
   "module": "dist/es6/index.js",
