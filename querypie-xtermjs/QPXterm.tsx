@@ -136,15 +136,6 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     // Setup the XTerm terminal.
     this.terminal = new Terminal(this.props.options);
 
-    this.terminal.loadAddon(this.fitAddon);
-
-    // Load addons if the prop exists.
-    if (this.props.addons) {
-      this.props.addons.forEach(addon => {
-        this.terminal?.loadAddon(addon);
-      });
-    }
-
     // Create Listeners
     this.terminal.onBinary(this.onBinary);
     this.terminal.onCursorMove(this.onCursorMove);
@@ -169,6 +160,17 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
     if (this.terminalRef.current && this.terminal) {
       // Creates the terminal within the container element.
       this.terminal.open(this.terminalRef.current);
+
+      this.terminal.loadAddon(this.fitAddon);
+
+      // Load addons if the prop exists.
+      if (this.props.addons) {
+        this.props.addons.forEach(addon => {
+          this.terminal?.loadAddon(addon);
+        });
+      }
+
+
       this.fitAddon.fit();
 
       this.resizeObserver.observe(this.terminalRef.current);
