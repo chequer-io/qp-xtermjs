@@ -162,6 +162,7 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
       this.terminal.open(this.terminalRef.current);
 
       this.terminal.loadAddon(this.fitAddon);
+      this.fitAddon.fit();
 
       // Load addons if the prop exists.
       if (this.props.addons) {
@@ -169,9 +170,6 @@ export default class QPXterm extends React.Component<IQPXTermProps> {
           this.terminal?.loadAddon(addon);
         });
       }
-
-
-      this.fitAddon.fit();
 
       this.resizeObserver.observe(this.terminalRef.current);
       this.props.onDidMount?.(this);
